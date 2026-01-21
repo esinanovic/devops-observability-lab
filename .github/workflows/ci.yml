@@ -24,7 +24,7 @@
             cache-dependency-path: './app/backend/package-lock.json'
         
         - name: Install backend dependencies
-          working-directory: './app/backend/package-lock.json'
+          working-directory: 'app/backend/package-lock.json'
           run: npm ci
 
         - name: Save node_modules to cache 
