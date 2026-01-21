@@ -1,0 +1,38 @@
+# backend/.dockerignore
+
+# Dependencies (sera installé par npm ci)
+node_modules/
+npm-debug.log
+yarn.lock
+
+# Tests (inutile en prod)
+test.js
+test_local.sh
+*.test.js
+*.spec.js
+
+# Config dev (inutile en prod)
+eslint.config.mjs
+.eslintrc*
+.prettierrc
+
+# Docker files (pas besoin dans l'image)
+Dockerfile
+.dockerignore
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Git (si tu as un .git dans backend/)
+.git/
+.gitignore
+
+# Env files locaux
+.env
+.env.local
