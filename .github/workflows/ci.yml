@@ -21,7 +21,7 @@
           with: 
             node-version: '20'
             cache: 'npm'
-            cache-dependency-path: backend/package-lock.json
+            cache-dependency-path: './app/backend/package-lock.json'
         
         - name: Install backend dependencies
           working-directory: ./backend
@@ -50,7 +50,7 @@
           with: 
             node-version: '20'
             cache: 'npm'
-            cache-dependency-path: backend/package-lock.json
+            cache-dependency-path: './app/backend/package-lock.json'
 
         - name: Restore node_modules cache
           uses: actions/cache@v3
@@ -82,7 +82,7 @@
           with: 
             node-version: '20'
             cache: 'npm'
-            cache-dependency-path: backend/package-lock.json
+            cache-dependency-path: './app/backend/package-lock.json'
 
         - name: Restore node_modules cache
           uses: actions/cache@v3 
