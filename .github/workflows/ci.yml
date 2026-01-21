@@ -24,7 +24,7 @@
             cache-dependency-path: './app/backend/package-lock.json'
         
         - name: Install backend dependencies
-          working-directory: ./backend
+          working-directory: './app/backend/package-lock.json'
           run: npm ci
 
         - name: Save node_modules to cache 
@@ -67,7 +67,7 @@
           run: npm ci
 
         - name : "define working directory "
-          working-directory: ./backend
+          working-directory: './backend/package-lock.json'
           run: npm run lint
 
     test-backend:
@@ -82,7 +82,7 @@
           with: 
             node-version: '20'
             cache: 'npm'
-            cache-dependency-path: './app/backend/package-lock.json'
+            cache-dependency-path: './backend/package-lock.json'
 
         - name: Restore node_modules cache
           uses: actions/cache@v3 
