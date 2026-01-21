@@ -1,0 +1,11 @@
+groups:
+  - name: backend_alerts
+    rules:
+      - alert: BackendDown
+        expr: up{job="backend-metrics"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Le Backend est hors service !"
+          description: "Le container backend ne répond plus depuis plus d'une minute."
