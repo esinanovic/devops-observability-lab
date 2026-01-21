@@ -62,12 +62,12 @@
               node-modules-
 
         - name: Install if cache missed (pour la sécurité)
-          working-directory: 'backend/'
+          working-directory: 'app/backend/'
           if: steps.node-cache-lint.outputs.cache-hit != 'true'
           run: npm ci
 
         - name : "define working directory "
-          working-directory: 'backend/'
+          working-directory: 'app/backend/'
           run: npm run lint
 
     test-backend:
@@ -122,12 +122,12 @@
             key: frontend-node-modules-${{ github.sha }}
         
         - name: Install if cache missed
-          working-directory: ./frontend
+          working-directory: 'frontend/'
           if: steps.frontend-cache-test.outputs.cache-hit != 'true'
           run: npm ci
         
         - name: Test
-          working-directory: ./frontend
+          working-directory: 'frontend/'
           run: npm test
 
     docker-build:
@@ -153,7 +153,7 @@
         - name: Build Backend Image
           uses: docker/build-push-action@v5
           with:
-            context: ./backend
+            context: 'backend/'
             tags: ci-training-backend:${{ github.sha }}
             cache-from: type=gha
             cache-to: type=gha,mode=max
@@ -162,7 +162,7 @@
         - name: Build Frontend Image
           uses: docker/build-push-action@v5
           with:
-            context: ./frontend
+            context: 'frontend/'
             tags: ci-training-frontend:${{ github.sha }}
             cache-from: type=gha
             cache-to: type=gha,mode=max
