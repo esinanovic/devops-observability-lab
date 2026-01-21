@@ -62,12 +62,12 @@
               node-modules-
 
         - name: Install if cache missed (pour la sécurité)
-          working-directory: ./backend
+          working-directory: 'backend/'
           if: steps.node-cache-lint.outputs.cache-hit != 'true'
           run: npm ci
 
         - name : "define working directory "
-          working-directory: './backend/package-lock.json'
+          working-directory: 'backend/'
           run: npm run lint
 
     test-backend:
@@ -94,12 +94,12 @@
               node-modules-
 
         - name: Install if cache missed
-          working-directory: ./backend
+          working-directory: 'backend/'
           if: steps.node-cache-test.outputs.cache-hit != 'true'
           run: npm ci
               
         - name : "define working directory "
-          working-directory: ./backend
+          working-directory: 'backend/'
           run: npm run test
 
     test-frontend:
