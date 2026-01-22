@@ -94,12 +94,12 @@
               node-modules-
 
         - name: Install if cache missed
-          working-directory: 'backend/'
+          working-directory: 'app/backend/'
           if: steps.node-cache-test.outputs.cache-hit != 'true'
           run: npm ci
               
         - name : "define working directory "
-          working-directory: 'backend/'
+          working-directory: 'app/backend/'
           run: npm run test
 
     test-frontend:
@@ -122,12 +122,12 @@
             key: frontend-node-modules-${{ github.sha }}
         
         - name: Install if cache missed
-          working-directory: 'frontend/'
+          working-directory: 'app/frontend/'
           if: steps.frontend-cache-test.outputs.cache-hit != 'true'
           run: npm ci
         
         - name: Test
-          working-directory: 'frontend/'
+          working-directory: 'app/frontend/'
           run: npm test
 
     docker-build:

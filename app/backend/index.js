@@ -10,7 +10,6 @@ const app = express();
 app.use(cors());
 app.use(metricsMiddleware);
 
-
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, '0.0.0.0', () => {
@@ -73,5 +72,22 @@ app.get('/api/status', async (req, res) => {
   }
 });
 
+app.get('/api/stats', async (req, res) => {
+  try {
+    const query = 'sum(rate(http_request_duration_seconds_count[5m]))';
+    const url = `http://prometheus:9090/api/v1/query?query=${encodeURIComponent(query)}`;
+
+    // Utilisation du fetch natif (pas besoin d'axios)
+    const response = await fetch(url);
+    const data = await response.json();
+
+    res.json({
+      status: 'success',
+      data: data.data.result
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Erreur lors de l'appel Prometheus" });
+  }
+});
 
 module.exports = app;
