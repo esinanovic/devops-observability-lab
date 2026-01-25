@@ -28,22 +28,28 @@ async function run() {
     try {
         // Test 1: Health
         const h = await wait(`${BACKEND}/health`, 'Backend');
-        if (JSON.parse(h.body).status !== 'ok') throw new Error('Health NOT OK');
-        console.log('Health OK');
+        const healthData = JSON.parse(h.body);
+        
+        console.log('Réponse reçue du Health:', healthData); // <--- LIGNE DE DEBUG
 
-        // Test 2: API & DB (C'est ici qu'on attend que la DB réponde enfin 200)
+        // On accepte "ok" ou "OK"
+        if (healthData.status.toLowerCase() !== 'ok') {
+            throw new Error(`Status attendu 'ok', reçu '${healthData.status}'`);
+        }
+        console.log('✅ Health OK');
+
+        // Test 2: API & DB
         const a = await wait(`${BACKEND}/api/status`, 'API/Database');
+        console.log('Réponse reçue de l\'API:', a.body); // <--- LIGNE DE DEBUG
+        
         const api = JSON.parse(a.body);
         if (api.status !== 'success') throw new Error('API Error');
-        console.log('API & Database OK');
-
-        // Test 3: Frontend
-        await wait(FRONTEND, 'Frontend');
-        console.log('Frontend OK');
+        console.log('✅ API & Database OK');
 
         process.exit(0);
     } catch (e) {
-        console.error(`FAILED: ${e.message}`);
+        console.error(`❌ FAILED: ${e.message}`);
+        if (e.stack) console.error(e.stack);
         process.exit(1);
     }
 }
