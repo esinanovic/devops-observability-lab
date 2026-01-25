@@ -63,11 +63,19 @@ app.get('/api/status', async (req, res) => {
     });
     
   } catch (dbError) {
+    console.error("DEBUG DATABASE ERROR:", {
+      message: dbError.message,
+      code: dbError.code, 
+      stack: dbError.stack,
+      env_host: process.env.DB_HOST,
+      env_user: process.env.DB_USER,
+      env_db: process.env.DB_NAME
+    });
+
     res.status(500).json({
       status: 'error',
       message: 'Database connection failed',
-      error: dbError.message,
-      timestamp: new Date().toISOString()
+      details: dbError.message
     });
   }
 });
