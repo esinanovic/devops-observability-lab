@@ -1,4 +1,4 @@
-#docker-compose.yml pour le dev local et le build
+#docker-compose.old.yml pour le dev local et le build
 services:
   frontend:
     build: ./frontend

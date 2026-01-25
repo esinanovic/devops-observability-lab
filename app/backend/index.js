@@ -66,7 +66,7 @@ app.get('/api/status', async (req, res) => {
     res.status(500).json({
       status: 'error',
       message: 'Database connection failed',
-      error: dbError.message, // L'erreur est envoyée au client (ton test JS), pas à la console Docker !
+      error: dbError.message,
       timestamp: new Date().toISOString()
     });
   }
@@ -77,7 +77,6 @@ app.get('/api/stats', async (req, res) => {
     const query = 'sum(rate(http_request_duration_seconds_count[5m]))';
     const url = `http://prometheus:9090/api/v1/query?query=${encodeURIComponent(query)}`;
 
-    // Utilisation du fetch natif (pas besoin d'axios)
     const response = await fetch(url);
     const data = await response.json();
 
