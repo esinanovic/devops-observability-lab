@@ -2,6 +2,8 @@
 services:
   frontend:
     build: ./app/frontend
+    image: observability-frontend:${TAG:-latest}
+    container_name: observability-frontend
     ports:
       - "3000:80"
     depends_on:
@@ -11,6 +13,8 @@ services:
 
   backend:
     build: ./app/backend
+    image: observability-backend:${TAG:-latest}
+    container_name: observability-backend
     ports:
       - "3001:3001"
     environment:

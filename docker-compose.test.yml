@@ -1,8 +1,8 @@
 # docker-compose.test.yml pour les tests CI/CD par github
 services:
   backend:
-    image: observability-db-backend:${GITHUB_SHA}
-    container_name: observability-db-backend-test
+    image: observability-backend:${TAG:-latest}
+    container_name: observability-backend
     ports:
       - "3001:3001"
     networks:
@@ -21,8 +21,8 @@ services:
       start_period: 10s
   
   frontend:
-    image: observability-db-frontend:${GITHUB_SHA}
-    container_name: observability-db-frontend
+    image: observability-frontend:${TAG:-latest}
+    container_name: observability-frontend
     ports:
       - "3000:80"
     networks:
@@ -35,7 +35,7 @@ services:
   
   database:
     image: postgres:15-alpine
-    container_name: database
+    container_name: observability-db
     networks:
       - test-network
     environment:

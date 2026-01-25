@@ -28,7 +28,8 @@ async function run() {
     try {
         // Test 1: Health
         const h = await wait(`${BACKEND}/health`, 'Backend');
-        if (JSON.parse(h.body).status !== 'ok') throw new Error('Health NOT OK');
+        const healthBody = JSON.parse(h.body);
+        if (healthBody.status.toLowerCase() !== 'ok') throw new Error('Health NOT OK');
         console.log('Health OK');
 
         // Test 2: API & DB (C'est ici qu'on attend que la DB réponde enfin 200)
