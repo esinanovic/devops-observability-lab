@@ -101,7 +101,7 @@ async function runTests() {
       throw new Error(`Invalid JSON response: ${healthResponse.body}`);
     }
     
-    if (healthData.status.toLowerCase() !== 'ok') {  // ✅
+    if (healthData.status.toLowerCase() !== 'ok') {
       throw new Error(`Backend not healthy. Status: ${healthData.status}`);
     }
     
@@ -113,6 +113,7 @@ async function runTests() {
     testsTotal++;
     console.log(' Test 2/4: Backend API Endpoint');
     
+    await waitForService(`${BACKEND_URL}/health`);
     const apiResponse = await httpGet(`${BACKEND_URL}/api/status`);
     
     if (apiResponse.statusCode !== 200) {

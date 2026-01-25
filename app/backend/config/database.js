@@ -3,7 +3,7 @@ const { Pool } = require('pg');
 const dbConfig = {
   host: process.env.DB_HOST || 'database',
   port: parseInt(process.env.DB_PORT) || 5432,
-  database: process.env.DB_NAME || 'ci_training_db',
+  database: process.env.DB_NAME || 'observability-db',
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'secretmdp',
 };
