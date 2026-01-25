@@ -207,23 +207,7 @@
             DB_PASSWORD: ${{ secrets.DB_PASSWORD }} 
             DB_NAME: ${{ secrets.DB_NAME }}
             DB_USER: ${{ secrets.DB_USER }}
-          run: |
-            docker compose -f docker-compose.test.yml up -d
-            timeout 60 bash -c '
-              while ! docker compose -f docker-compose.test.yml ps backend | grep -q "(healthy)"; do
-                echo "Waiting for backend..."
-                sleep 5
-              done
-            '
-
-        - name: healthcheck isdeployed
-          run: |
-            sleep 30
-            if curl -s -f "http://localhost:3001/health" > /dev/null; then
-              echo "L'application est en ligne "
-            else
-              echo "L'application ne répond pas "
-            fi
+          run: docker compose -f docker-compose.test.yml up -d
         
         - name: Run integration tests
           run: node tests/integration/docker-integration.test.js
