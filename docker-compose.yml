@@ -21,10 +21,10 @@ services:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3001/metrics"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   database:
     image: postgres:15-alpine
@@ -35,9 +35,9 @@ services:
       POSTGRES_DB: ${DB_NAME:-observability-db}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME:-observability-db}"] #Pour tester est ce que la bdd accepte les connexions
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      interval: 3s
+      timeout: 3s
+      retries: 10
     ports:
       - "5432:5432"
     volumes:

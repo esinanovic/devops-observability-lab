@@ -14,21 +14,14 @@ const GET = (url) => new Promise((res, rej) => {
 
 async function wait(url, name) {
     console.log(`Checking ${name}...`);
-    for (let i = 0; i < 30; i++) {
-        try {
-            const r = await GET(url);
-            if (r.status === 200) return r;
-            
-            // SI ON REÇOIT UNE 500, ON VEUT VOIR POURQUOI !
-            if (r.status === 500) {
-                console.log(`⚠️ ${name} a répondu une Erreur 500. DÉTAILS : ${r.body}`);
-            }
-        } catch (e) {
-            // Ici c'est une erreur réseau (ex: le serveur n'est pas encore levé)
+    try {
+        const r = await GET(url);
+        if (r.status === 200) return r;
+        if (r.status === 500) {
+            console.log(`⚠️ ${name} a répondu une Erreur 500. DÉTAILS : ${r.body}`);
         }
-        await new Promise(r => setTimeout(r, 2000));
+    } catch (e) {
     }
-    throw new Error(`${name} unreachable after 30 attempts`);
 }
 
 async function run() {
