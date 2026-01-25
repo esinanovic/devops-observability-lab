@@ -1,7 +1,7 @@
 # docker-compose.test.yml pour les tests CI/CD par github
 services:
   backend:
-    image: ci-training-backend:${GITHUB_SHA}
+    image: observability-db-backend:${GITHUB_SHA}
     container_name: ci-backend-test
     ports:
       - "3001:3001"
